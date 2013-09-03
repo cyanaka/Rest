@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import dto.Course;
 import dto.Location;
@@ -51,7 +52,12 @@ public class Access {
 				result.setLogin(rs.getString("login"));
 				result.setLatitude(rs.getDouble("latitude"));
 				result.setLongitude(rs.getDouble("longitude"));
-				result.setDateTime(rs.getTimestamp("datetime"));
+				result.setDateTime(rs.getDate("datetime"));
+				result.setCidade(rs.getString("cidade"));
+				result.setEstado(rs.getString("estado"));
+				result.setEndereco(rs.getString("endereco"));
+				result.setPais(rs.getString("pais"));
+				result.setNumero(rs.getInt("numero"));
 			}
 
 		} catch (Exception e) {
@@ -67,12 +73,23 @@ public class Access {
 		int i = 0;
 		try {
 			PreparedStatement stmt = con
-					.prepareStatement("INSERT INTO location (login, latitude, longitude, datetime)values(?,?,?,?)");
+					.prepareStatement("INSERT INTO location (login, latitude, longitude, " +
+							"datetime, estado, cidade, pais, endereco, numero) " +
+							"VALUES (?,?,?,?,?,?,?,?,?)");
 			stmt.setString(1, location.getLogin());
 			stmt.setDouble(2, location.getLatitude());
 			stmt.setDouble(3, location.getLongitude());
-			Calendar cal = Calendar.getInstance();
-			stmt.setDate(4, new java.sql.Date(cal.getTimeInMillis()));
+			Date dt = new Date();
+			java.text.SimpleDateFormat sdf = 
+			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");	
+			String currentTime = sdf.format(dt);
+			stmt.setString(4, currentTime);
+			stmt.setString(5, location.getEstado());
+			stmt.setString(6, location.getCidade());
+			stmt.setString(7, location.getPais());
+			stmt.setString(8, location.getEndereco());
+			stmt.setInt(9, location.getNumero());
+			
 			i = stmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

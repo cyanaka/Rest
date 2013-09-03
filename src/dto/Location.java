@@ -14,6 +14,11 @@ public class Location {
 	private Double latitude;
 	private Double longitude;
 	private Date dateTime;
+	private String estado;
+	private String cidade;
+	private String pais;
+	private String endereco;
+	private Integer numero;
 
 	public Location() {
 
@@ -57,6 +62,46 @@ public class Location {
 
 	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
+	}
+	
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public Integer getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
 	}
 
 	@Override
